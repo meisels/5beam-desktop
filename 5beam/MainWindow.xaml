@@ -1,0 +1,25 @@
+﻿<Window x:Name="_5beam" x:Class="_5beam.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_5beam"
+        mc:Ignorable="d"
+        Title="5beam" Height="450" Width="800" MaxWidth="800" MaxHeight="450" Icon="icon2_RRz_icon.ico" ResizeMode="NoResize">
+    <Grid Width="795" Height="422">
+        <Button x:Name="start5b" Content="Start 5b" HorizontalAlignment="Left" Margin="375,2,0,0" VerticalAlignment="Top" Width="400" Height="80" Background="#FFA1FFAA" BorderBrush="#FF517058" Cursor="Hand" Click="Start5b_Click" FontSize="48"/>
+        <ListBox x:Name="Levelslist" HorizontalAlignment="Left" Height="277" Margin="375,87,0,0" VerticalAlignment="Top" Width="400" SelectionChanged="Levelslist_SelectionChanged"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Height="309" Margin="9,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="361" Background="#FFE4FFFE" FontSize="24"><Run Text="5beam allows you to play other people's levels.txt files in an instant."/><Run Text=" "/><Run Text="Just pop them in a folder and you'll be able to easily access them"/><Run Text=" in no time"/><Run Text="."/><LineBreak/><Run/><LineBreak/><Run Text="In future it'll "/><Run Text="show you the amount of levels, what the levels are called and "/><Run Text="levels merging."/></TextBlock>
+        <Button x:Name="looklevels" Content="Change Directory" HorizontalAlignment="Left" Height="27" Margin="634,369,0,0" VerticalAlignment="Top" Width="141" Click="Looklevels_Click"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="80" TextWrapping="Wrap" Text="5beam 1.0" VerticalAlignment="Top" Width="361" FontSize="72" FontFamily="Arial" BorderBrush="{x:Null}" Padding="0" IsReadOnly="True" Margin="9,2,0,0">
+            <TextBox.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFF9E999" Offset="1"/>
+                    <GradientStop Color="#FFFFB4B4"/>
+                </LinearGradientBrush>
+            </TextBox.Background>
+        </TextBox>
+        <Button x:Name="refreshButton" Content="Refresh" HorizontalAlignment="Left" Height="27" Margin="375,369,0,0" VerticalAlignment="Top" Width="254" Click="RefreshButton_Click" Background="#FFA9FFAD"/>
+
+    </Grid>
+</Window>

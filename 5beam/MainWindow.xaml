@@ -7,19 +7,39 @@
         mc:Ignorable="d"
         Title="5beam" Height="450" Width="800" MaxWidth="800" MaxHeight="450" Icon="icon2_RRz_icon.ico" ResizeMode="NoResize">
     <Grid Width="795" Height="422">
-        <Button x:Name="start5b" Content="Start 5b" HorizontalAlignment="Left" Margin="375,2,0,0" VerticalAlignment="Top" Width="400" Height="80" Background="#FFA1FFAA" BorderBrush="#FF517058" Cursor="Hand" Click="Start5b_Click" FontSize="48"/>
-        <ListBox x:Name="Levelslist" HorizontalAlignment="Left" Height="277" Margin="375,87,0,0" VerticalAlignment="Top" Width="400" SelectionChanged="Levelslist_SelectionChanged"/>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Height="309" Margin="9,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="361" Background="#FFE4FFFE" FontSize="24"><Run Text="5beam allows you to play other people's levels.txt files in an instant."/><Run Text=" "/><Run Text="Just pop them in a folder and you'll be able to easily access them"/><Run Text=" in no time"/><Run Text="."/><LineBreak/><Run/><LineBreak/><Run Text="In future it'll "/><Run Text="show you the amount of levels, what the levels are called and "/><Run Text="levels merging."/></TextBlock>
-        <Button x:Name="looklevels" Content="Change Directory" HorizontalAlignment="Left" Height="27" Margin="634,369,0,0" VerticalAlignment="Top" Width="141" Click="Looklevels_Click"/>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="80" TextWrapping="Wrap" Text="5beam 1.0" VerticalAlignment="Top" Width="361" FontSize="72" FontFamily="Arial" BorderBrush="{x:Null}" Padding="0" IsReadOnly="True" Margin="9,2,0,0">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF80FFCB" Offset="0"/>
+                <GradientStop Color="#FF1660B1" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Button x:Name="start5b" Content="Start 5b" HorizontalAlignment="Left" Margin="10,372,0,0" VerticalAlignment="Top" Width="664" Height="40" BorderBrush="#FF517058" Cursor="Hand" Click="Start5b_Click" FontSize="24">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF149F34" Offset="1"/>
+                    <GradientStop Color="#FF1DFF59"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <ListBox x:Name="Levelslist" HorizontalAlignment="Left" Height="264" Margin="10,98,0,0" VerticalAlignment="Top" Width="775" SelectionChanged="Levelslist_SelectionChanged" Background="#BFFFFFFF"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Height="71" Margin="322,19,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="463" Background="#FFE4FFFE" FontSize="24" TextAlignment="Center"><Run Text="S"/><Run Text="earch the list"/><Run Text=", select what level you want to play and then press &quot;Start 5b&quot;."/></TextBlock>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="62" TextWrapping="Wrap" Text="5beam-qt" VerticalAlignment="Top" Width="220" FontSize="48" FontFamily="Arial" BorderBrush="{x:Null}" Padding="0" IsReadOnly="True" TextChanged="textBox_TextChanged" Margin="10,10,0,0">
             <TextBox.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FFF9E999" Offset="1"/>
-                    <GradientStop Color="#FFFFB4B4"/>
+                    <GradientStop Color="#FF99CAF9" Offset="1"/>
+                    <GradientStop Color="#FFB4FFF0"/>
                 </LinearGradientBrush>
             </TextBox.Background>
         </TextBox>
-        <Button x:Name="refreshButton" Content="Refresh" HorizontalAlignment="Left" Height="27" Margin="375,369,0,0" VerticalAlignment="Top" Width="254" Click="RefreshButton_Click" Background="#FFA9FFAD"/>
+        <Button x:Name="refreshButton" Content="Refresh" HorizontalAlignment="Left" Height="40" Margin="679,372,0,0" VerticalAlignment="Top" Width="106" Click="RefreshButton_Click">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF71EDD9" Offset="0"/>
+                    <GradientStop Color="#FF2F92A0" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Label x:Name="label" Content="1.0, contact Zelo101#0138 for any help / questions&#xA;" HorizontalAlignment="Left" Height="31" Margin="10,72,0,0" VerticalAlignment="Top" Width="283"/>
 
     </Grid>
 </Window>

@@ -47,6 +47,7 @@ namespace _5beam {
 		string levelfolderPath = Path.Combine(directory, "levels");
 		string configPath = Path.Combine(directory, "config.zelo");
 		string selectedlevel;
+		Level[] levellist;
 
 		Boolean fiveb = true;
 
@@ -86,7 +87,7 @@ namespace _5beam {
 
 		public void ParseStream(string jsonlevellist) {
 			JavaScriptSerializer js = new JavaScriptSerializer();
-			Level[] levellist = js.Deserialize<Level[]>(jsonlevellist);
+			levellist = js.Deserialize<Level[]>(jsonlevellist);
 
 			for (int i = 0; i < levellist.Length; i++) {
 				Levelslist.Items.Add(
@@ -110,7 +111,13 @@ namespace _5beam {
 			if (!(File.Exists(configPath))) {
 				File.WriteAllText(configPath, levelfolderPath);
 			} else {
-				levelfolderPath = File.ReadAllText(configPath);
+				if (File.ReadAllText(configPath) == null) {
+					levelfolderPath = File.ReadAllText(configPath);
+				}
+			}
+
+			if (!(File.Exists(levelsPath))) {
+				File.WriteAllText(levelsPath, "");
 			}
 			System.IO.Directory.CreateDirectory(levelfolderPath);
 
@@ -123,11 +130,17 @@ namespace _5beam {
 				return;
 			}
 
+			if (File.ReadAllText(levelsPath) == null) {
+				MessageBox.Show("Please select a level before starting 5b");
+				return;
+			}
+
 			if (selectedlevel != null) {
+				var  id = Levelslist.SelectedIndex;
 				Thread downloadThread = new Thread(() => {
 					WebClient client = new WebClient();
-					client.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(client_DownloadFileCompleted);
-					client.DownloadFileAsync(new Uri("http://5beam.zapto.org/dl/0"), levelsPath);
+					client.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(Client_DownloadFileCompleted);
+					client.DownloadFileAsync(new Uri("http://5beam.zapto.org/dl/" + id), levelsPath); //"http://localhost/dl/" + selectedlevel
 				});
 				downloadThread.Start();
 				//string levelbuffer = File.ReadAllText(Path.Combine(levelfolderPath, selectedlevel));
@@ -136,7 +149,7 @@ namespace _5beam {
 
 		}
 
-		void client_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e) {
+		void Client_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e) {
 			Dispatcher.BeginInvoke((Action) delegate {
 				System.Diagnostics.Process.Start(fivebPath);
 			});
@@ -158,21 +171,15 @@ namespace _5beam {
 		}*/
 
 		private void Levelslist_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-			selectedlevel = Levelslist.SelectedItem.ToString();
+			if (Levelslist.Items.Count != 0) {
+				selectedlevel = Levelslist.SelectedItem.ToString();
+				int sl_int = Levelslist.SelectedIndex;
+				textBlockSelection.Text = "You have selected '" + levellist[sl_int].Name + "' by " + levellist[sl_int].Username + ".";
+			}
 		}
 
 		private void RefreshButton_Click(object sender, RoutedEventArgs e) {
-			Levelslist.Items.Clear();
 			Refresh();
-		}
-
-		private void textBox_TextChanged(object sender, TextChangedEventArgs e)
-		{
-
-		}
-
-		private void ProgressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
-
 		}
 	}
 }

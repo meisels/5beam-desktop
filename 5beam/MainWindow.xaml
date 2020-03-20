@@ -21,16 +21,16 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <ListBox x:Name="Levelslist" HorizontalAlignment="Left" Height="264" Margin="10,98,0,0" VerticalAlignment="Top" Width="775" SelectionChanged="Levelslist_SelectionChanged" Background="#BFFFFFFF"/>
+        <ListBox x:Name="Levelslist" HorizontalAlignment="Left" Height="240" Margin="10,98,0,0" VerticalAlignment="Top" Width="775" SelectionChanged="Levelslist_SelectionChanged" Background="#BFFFFFFF"/>
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Height="71" Margin="322,19,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="463" Background="#FFE4FFFE" FontSize="24" TextAlignment="Center"><Run Text="S"/><Run Text="earch the list"/><Run Text=", select what level you want to play and then press &quot;Start 5b&quot;."/></TextBlock>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="62" TextWrapping="Wrap" Text="5beam-qt" VerticalAlignment="Top" Width="220" FontSize="48" FontFamily="Arial" BorderBrush="{x:Null}" Padding="0" IsReadOnly="True" TextChanged="textBox_TextChanged" Margin="10,10,0,0">
-            <TextBox.Background>
+        <TextBlock x:Name="textBlockTitle" HorizontalAlignment="Left" Height="62" TextWrapping="Wrap" Text="5beam-qt" VerticalAlignment="Top" Width="220" FontSize="48" FontFamily="Arial" Padding="0" Margin="10,10,0,0">
+            <TextBlock.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF99CAF9" Offset="1"/>
                     <GradientStop Color="#FFB4FFF0"/>
                 </LinearGradientBrush>
-            </TextBox.Background>
-        </TextBox>
+            </TextBlock.Background>
+        </TextBlock>
         <Button x:Name="refreshButton" Content="Refresh" HorizontalAlignment="Left" Height="40" Margin="679,372,0,0" VerticalAlignment="Top" Width="106" Cursor="Hand" Click="RefreshButton_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -40,6 +40,7 @@
             </Button.Background>
         </Button>
         <Label x:Name="label" Content="1.0, contact Zelo101#0138 for any help / questions&#xA;" HorizontalAlignment="Left" Height="31" Margin="10,72,0,0" VerticalAlignment="Top" Width="283"/>
+        <TextBlock x:Name="textBlockSelection" HorizontalAlignment="Left" Height="24" Margin="10,343,0,0" TextWrapping="Wrap" Text="No levelpack selected" VerticalAlignment="Top" Width="775" Background="#7FCDCDCD" TextAlignment="Center" LineHeight="6"/>
 
     </Grid>
 </Window>

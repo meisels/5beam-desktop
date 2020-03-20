@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_5beam"
         mc:Ignorable="d"
-        Title="5beam" Height="450" Width="800" MaxWidth="800" MaxHeight="450" Icon="icon2_RRz_icon.ico" ResizeMode="NoResize">
-    <Grid Width="795" Height="422">
+        Title="5beam" Height="460" Width="810" MaxWidth="810" MaxHeight="460" Icon="icon2_RRz_icon.ico" ResizeMode="NoResize">
+    <Grid Width="810" Height="460">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="#FF80FFCB" Offset="0"/>
@@ -31,7 +31,7 @@
                 </LinearGradientBrush>
             </TextBox.Background>
         </TextBox>
-        <Button x:Name="refreshButton" Content="Refresh" HorizontalAlignment="Left" Height="40" Margin="679,372,0,0" VerticalAlignment="Top" Width="106" Click="RefreshButton_Click">
+        <Button x:Name="refreshButton" Content="Refresh" HorizontalAlignment="Left" Height="40" Margin="679,372,0,0" VerticalAlignment="Top" Width="106" Cursor="Hand" Click="RefreshButton_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF71EDD9" Offset="0"/>

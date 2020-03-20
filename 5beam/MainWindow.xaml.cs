@@ -40,6 +40,7 @@ namespace _5beam {
 	}
 	public partial class MainWindow : Window {
 		const string database = "http://5beam.zapto.org/api/levellist";
+		const string offlinemsg = "Refresh Failed. Either you, or the server (http://5beam.zapto.org) is offline. Local play is coming in another update.";
 		static string directory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 		string fivebPath = Path.Combine(directory, "5b.swf");
 		string levelsPath = Path.Combine(directory, "levels.txt");
@@ -54,7 +55,15 @@ namespace _5beam {
 
 			var levelRequest = WebRequest.Create(database);
 
-			var levelStream = levelRequest.GetResponse().GetResponseStream();
+			Stream levelStream;
+			try {
+				levelStream = levelRequest.GetResponse().GetResponseStream();
+			}
+			catch (System.Net.WebException) {
+				MessageBox.Show(offlinemsg);
+				return;
+			}
+			// System.Net.WebException: 'Unable to connect to the remote server'
 
 			if (levelStream != null) {
 				using (var streamReader = new StreamReader(levelStream)) {
@@ -65,7 +74,7 @@ namespace _5beam {
 					}
 				}
 			} else {
-				Levelslist.Items.Add("Refresh Failed. Check if you & the server is online.");
+				MessageBox.Show(offlinemsg);
 			}
 			//Levelslist.Items.Add(levelStream);
 			//Console.WriteLine(levelStream);
@@ -109,10 +118,7 @@ namespace _5beam {
 		}
 
 		private void Start5b_Click(object sender, RoutedEventArgs e) {
-			if (fiveb) {
-				//System.Diagnostics.Process.Start(fivebPath);
-			}
-			else {
+			if (!fiveb) {
 				MessageBox.Show("The 5b.swf file needs to be in '" + directory + "' for this to work. If it is, restart this program.");
 				return;
 			}

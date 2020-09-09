@@ -9,8 +9,8 @@
     <Grid Width="810" Height="460">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#FF80FFCB" Offset="0"/>
-                <GradientStop Color="#FF1660B1" Offset="1"/>
+                <GradientStop Color="#FFE7FF80" Offset="0"/>
+                <GradientStop Color="#FFB11648" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
         <Button x:Name="start5b" Content="Start 5b" HorizontalAlignment="Left" Margin="10,372,0,0" VerticalAlignment="Top" Width="664" Height="40" BorderBrush="#FF517058" Cursor="Hand" Click="Start5b_Click" FontSize="24">
@@ -26,8 +26,8 @@
         <TextBlock x:Name="textBlockTitle" HorizontalAlignment="Left" Height="62" TextWrapping="Wrap" Text="5beam-qt" VerticalAlignment="Top" Width="220" FontSize="48" FontFamily="Arial" Padding="0" Margin="10,10,0,0">
             <TextBlock.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF99CAF9" Offset="1"/>
-                    <GradientStop Color="#FFB4FFF0"/>
+                    <GradientStop Color="#FFF999A7" Offset="1"/>
+                    <GradientStop Color="#FFFFEFB4"/>
                 </LinearGradientBrush>
             </TextBlock.Background>
         </TextBlock>
@@ -39,7 +39,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Label x:Name="label" Content="1.0, contact Zelo101#0138 for any help / questions&#xA;" HorizontalAlignment="Left" Height="31" Margin="10,72,0,0" VerticalAlignment="Top" Width="283"/>
+        <Label x:Name="label" Content="2.0, contact Zelo101#0138 for any help / questions" HorizontalAlignment="Left" Height="31" Margin="10,72,0,0" VerticalAlignment="Top" Width="283"/>
         <TextBlock x:Name="textBlockSelection" HorizontalAlignment="Left" Height="24" Margin="10,343,0,0" TextWrapping="Wrap" Text="No levelpack selected" VerticalAlignment="Top" Width="775" Background="#7FCDCDCD" TextAlignment="Center" LineHeight="6"/>
 
     </Grid>

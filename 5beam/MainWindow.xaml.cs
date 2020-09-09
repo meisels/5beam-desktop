@@ -33,13 +33,13 @@ namespace _5beam {
 	public class Level {
 		public int Id { get; set; }
 		public string Name { get; set; }
-		public string Username { get; set; }
+		public string Author { get; set; }
 		public string Description { get; set; }
 		public int Size { get; set; }
 		public int Views { get; set; }
 	}
 	public partial class MainWindow : Window {
-		const string database = "http://5beam.zapto.org/api/levellist";
+		const string database = "http://5beam.zapto.org/api/5b";
 		const string offlinemsg = "Refresh Failed. Either you, or the server (http://5beam.zapto.org) is offline. Local play is coming in another update.";
 		static string directory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 		string fivebPath = Path.Combine(directory, "5b.swf");
@@ -92,8 +92,7 @@ namespace _5beam {
 			for (int i = 0; i < levellist.Length; i++) {
 				Levelslist.Items.Add(
 					levellist[i].Name + " (Uploaded By: " +
-					levellist[i].Username + ", Views: " +
-					levellist[i].Views + ")"
+					levellist[i].Author + ")"
 				);
 			}
 
@@ -136,11 +135,11 @@ namespace _5beam {
 			}
 
 			if (selectedlevel != null) {
-				var  id = Levelslist.SelectedIndex;
+				var id = levellist[Levelslist.SelectedIndex].Id;
 				Thread downloadThread = new Thread(() => {
 					WebClient client = new WebClient();
 					client.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(Client_DownloadFileCompleted);
-					client.DownloadFileAsync(new Uri("http://5beam.zapto.org/dl/" + id), levelsPath); //"http://localhost/dl/" + selectedlevel
+					client.DownloadFileAsync(new Uri("http://5beam.zapto.org/download/" + id), levelsPath); //"http://localhost/dl/" + selectedlevel
 				});
 				downloadThread.Start();
 				//string levelbuffer = File.ReadAllText(Path.Combine(levelfolderPath, selectedlevel));
@@ -174,7 +173,7 @@ namespace _5beam {
 			if (Levelslist.Items.Count != 0) {
 				selectedlevel = Levelslist.SelectedItem.ToString();
 				int sl_int = Levelslist.SelectedIndex;
-				textBlockSelection.Text = "You have selected '" + levellist[sl_int].Name + "' by " + levellist[sl_int].Username + ".";
+				textBlockSelection.Text = "You have selected '" + levellist[sl_int].Name + "' by " + levellist[sl_int].Author + ".";
 			}
 		}
 

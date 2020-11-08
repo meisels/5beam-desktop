@@ -15,20 +15,20 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_BD54C4223D0842AE958B1676230462CB"
+        "MsmKey" = "8:_94CC6735DBA94730AB708CCDF93738E7"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_F458E6CAB5AD4423AB0E48F8439BF3CD"
+        "MsmKey" = "8:_AE4B58E6306D4E978CA17B009F924F4F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_BD54C4223D0842AE958B1676230462CB"
+        "OwnerKey" = "8:_94CC6735DBA94730AB708CCDF93738E7"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -88,6 +88,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
             }
         }
     }
@@ -118,20 +126,20 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_BD54C4223D0842AE958B1676230462CB"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_94CC6735DBA94730AB708CCDF93738E7"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:5beam-desktop, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_BD54C4223D0842AE958B1676230462CB"
+                    "_94CC6735DBA94730AB708CCDF93738E7"
                     {
                     "Name" = "8:5beam-desktop.exe"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:..\\5beam\\bin\\Debug\\5beam-desktop.exe"
+            "SourcePath" = "8:..\\5beam-desktop\\bin\\Debug\\5beam-desktop.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_08DDE9208BCB4F99B65E3A5D1062E780"
@@ -149,9 +157,9 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F458E6CAB5AD4423AB0E48F8439BF3CD"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_AE4B58E6306D4E978CA17B009F924F4F"
             {
-            "SourcePath" = "8:..\\5beam\\icon2_RRz_icon.ico"
+            "SourcePath" = "8:..\\5beam-desktop\\icon2_RRz_icon.ico"
             "TargetName" = "8:icon2_RRz_icon.ico"
             "Tag" = "8:"
             "Folder" = "8:_08DDE9208BCB4F99B65E3A5D1062E780"
@@ -226,7 +234,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:5beam-desktop"
         "ProductCode" = "8:{81A8B6AD-D6CE-4CE0-B278-C128D471184D}"
-        "PackageCode" = "8:{ADF7944A-1230-477F-8504-0FF30D529613}"
+        "PackageCode" = "8:{448F7E6C-62F9-406E-B51D-4160E88BE734}"
         "UpgradeCode" = "8:{1EDFFF5D-179A-43CF-A998-6C9C8A78256F}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -243,7 +251,7 @@
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:"
         "ARPURLINFOABOUT" = "8:"
-        "ARPPRODUCTICON" = "8:_F458E6CAB5AD4423AB0E48F8439BF3CD"
+        "ARPPRODUCTICON" = "8:_AE4B58E6306D4E978CA17B009F924F4F"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
@@ -346,7 +354,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_07D9779767F34C9FAA26B0977C8A1A4D"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_3FFC73832266489181606467F90F21CD"
             {
             "Name" = "8:5beam-desktop"
             "Arguments" = "8:"
@@ -354,24 +362,24 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_BD54C4223D0842AE958B1676230462CB"
-            "Folder" = "8:_C2365697B5E54C8A86547153DB700BD7"
-            "WorkingFolder" = "8:_08DDE9208BCB4F99B65E3A5D1062E780"
-            "Icon" = "8:_F458E6CAB5AD4423AB0E48F8439BF3CD"
-            "Feature" = "8:"
-            }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_EBFA2CCB3AD34AFDB3DED8FC14D0E71F"
-            {
-            "Name" = "8:5beam-desktop"
-            "Arguments" = "8:"
-            "Description" = "8:"
-            "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
-            "Transitive" = "11:FALSE"
-            "Target" = "8:_BD54C4223D0842AE958B1676230462CB"
+            "Target" = "8:_94CC6735DBA94730AB708CCDF93738E7"
             "Folder" = "8:_4543BDF85E964D90876624CC425A8CC8"
             "WorkingFolder" = "8:_08DDE9208BCB4F99B65E3A5D1062E780"
-            "Icon" = "8:_F458E6CAB5AD4423AB0E48F8439BF3CD"
+            "Icon" = "8:_AE4B58E6306D4E978CA17B009F924F4F"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_A1AB6CECB2E14F6F9FFFCCE92FB70816"
+            {
+            "Name" = "8:5beam-desktop"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_94CC6735DBA94730AB708CCDF93738E7"
+            "Folder" = "8:_C2365697B5E54C8A86547153DB700BD7"
+            "WorkingFolder" = "8:_08DDE9208BCB4F99B65E3A5D1062E780"
+            "Icon" = "8:_AE4B58E6306D4E978CA17B009F924F4F"
             "Feature" = "8:"
             }
         }
@@ -505,7 +513,7 @@
                             "ContextData" = "8:1;True=1;False=0"
                             "Attributes" = "3:0"
                             "Setting" = "3:0"
-                            "Value" = "3:1"
+                            "Value" = "3:0"
                             "DefaultValue" = "3:1"
                             "UsePlugInResources" = "11:TRUE"
                             }

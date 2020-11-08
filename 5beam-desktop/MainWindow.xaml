@@ -8,12 +8,12 @@
         Title="5beam" Height="460" Width="810" MaxWidth="810" MaxHeight="460" Icon="icon2_RRz_icon.ico" ResizeMode="NoResize">
     <Grid Width="810" Height="460">
         <Grid.Background>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#FFE7FF80" Offset="0"/>
-                <GradientStop Color="#FFB11648" Offset="1"/>
+            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                <GradientStop Color="#6407C2" Offset="0"/>
+                <GradientStop Color="#022993" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Button x:Name="start5b" Content="Start 5b" HorizontalAlignment="Left" Margin="10,372,0,0" VerticalAlignment="Top" Width="664" Height="40" BorderBrush="#FF517058" Cursor="Hand" Click="Start5b_Click" FontSize="24">
+        <Button x:Name="start5b" Content="Start 5b" HorizontalAlignment="Left" Margin="121,372,0,0" VerticalAlignment="Top" Width="553" Height="40" BorderBrush="#FF517058" Cursor="Hand" Click="Start5b_Click" FontSize="24">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF149F34" Offset="1"/>
@@ -22,12 +22,12 @@
             </Button.Background>
         </Button>
         <ListBox x:Name="Levelslist" HorizontalAlignment="Left" Height="240" Margin="10,98,0,0" VerticalAlignment="Top" Width="775" SelectionChanged="Levelslist_SelectionChanged" Background="#BFFFFFFF"/>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Height="71" Margin="322,19,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="463" Background="#FFE4FFFE" FontSize="24" TextAlignment="Center"><Run Text="S"/><Run Text="earch the list"/><Run Text=", select what level you want to play and then press &quot;Start 5b&quot;."/></TextBlock>
-        <TextBlock x:Name="textBlockTitle" HorizontalAlignment="Left" Height="62" TextWrapping="Wrap" Text="5beam-qt" VerticalAlignment="Top" Width="220" FontSize="48" FontFamily="Arial" Padding="0" Margin="10,10,0,0">
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Height="71" Margin="389,19,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="396" Background="#FFE4FFFE" FontSize="24" TextAlignment="Center" Text="Select the level you want to play and then press &quot;Start 5b&quot;."/>
+        <TextBlock x:Name="textBlockTitle" HorizontalAlignment="Left" Height="62" TextWrapping="Wrap" Text="5beam-desktop" VerticalAlignment="Top" Width="341" FontSize="48" FontFamily="Arial" Padding="0" Margin="10,10,0,0">
             <TextBlock.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FFF999A7" Offset="1"/>
-                    <GradientStop Color="#FFFFEFB4"/>
+                    <GradientStop Color="#FF007AFF" Offset="1"/>
+                    <GradientStop Color="#FFC4D5FF"/>
                 </LinearGradientBrush>
             </TextBlock.Background>
         </TextBlock>
@@ -39,8 +39,16 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Label x:Name="label" Content="2.0, contact Zelo101#0138 for any help / questions" HorizontalAlignment="Left" Height="31" Margin="10,72,0,0" VerticalAlignment="Top" Width="283"/>
+        <Label x:Name="label" Content="3.0, contact Zelo101#0138 for any help / questions" HorizontalAlignment="Left" Height="31" Margin="10,72,0,0" VerticalAlignment="Top" Width="283"/>
         <TextBlock x:Name="textBlockSelection" HorizontalAlignment="Left" Height="24" Margin="10,343,0,0" TextWrapping="Wrap" Text="No levelpack selected" VerticalAlignment="Top" Width="775" Background="#7FCDCDCD" TextAlignment="Center" LineHeight="6"/>
+        <Button x:Name="uploadButton" Content="Upload" HorizontalAlignment="Left" Height="40" Margin="10,372,0,0" VerticalAlignment="Top" Width="106" Cursor="Hand" Click="UploadButton_Click">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF71EDD9" Offset="0"/>
+                    <GradientStop Color="#FF2F92A0" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
 
     </Grid>
 </Window>

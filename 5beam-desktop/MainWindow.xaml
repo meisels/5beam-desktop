@@ -9,8 +9,8 @@
     <Grid Width="810" Height="460">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                <GradientStop Color="#6407C2" Offset="0"/>
-                <GradientStop Color="#022993" Offset="1"/>
+                <GradientStop Color="#FF07C2B1" Offset="0"/>
+                <GradientStop Color="#FF04574C" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
         <Button x:Name="start5b" Content="Start 5b" HorizontalAlignment="Left" Margin="121,372,0,0" VerticalAlignment="Top" Width="553" Height="40" BorderBrush="#FF517058" Cursor="Hand" Click="Start5b_Click" FontSize="24">
@@ -39,7 +39,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Label x:Name="label" Content="3.0, contact Zelo101#0138 for any help / questions" HorizontalAlignment="Left" Height="31" Margin="10,72,0,0" VerticalAlignment="Top" Width="283"/>
+        <Label x:Name="label" Content="4.0, contact Zelo101#0138 for any help / questions" HorizontalAlignment="Left" Height="31" Margin="10,72,0,0" VerticalAlignment="Top" Width="283"/>
         <TextBlock x:Name="textBlockSelection" HorizontalAlignment="Left" Height="24" Margin="10,343,0,0" TextWrapping="Wrap" Text="No levelpack selected" VerticalAlignment="Top" Width="775" Background="#7FCDCDCD" TextAlignment="Center" LineHeight="6"/>
         <Button x:Name="uploadButton" Content="Upload" HorizontalAlignment="Left" Height="40" Margin="10,372,0,0" VerticalAlignment="Top" Width="106" Cursor="Hand" Click="UploadButton_Click">
             <Button.Background>

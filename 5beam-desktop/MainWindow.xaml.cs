@@ -24,7 +24,7 @@ using Path = System.IO.Path;
 namespace _5beam
 {
 	/// made by Zelo101
-	/// version 3.0
+	/// version 4.0
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
 	/// 
@@ -40,8 +40,8 @@ namespace _5beam
 	}
 	public partial class MainWindow : Window
 	{
-		const string database = "https://5beam.zapto.org/api/5b";
-		const string offlinemsg = "Refresh Failed. Either you, or the server (https://5beam.zapto.org) is offline.";
+		const string database = "https://5beam.zelo.dev/api/5b";
+		const string offlinemsg = "Refresh Failed. Either you, or the server (https://5beam.zelo.dev) is offline.";
 		static string directory = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "levels");
 		string selectedlevel;
 		Level[] levellist;
@@ -110,7 +110,7 @@ namespace _5beam
 				Thread downloadThread = new Thread(() => {
 					WebClient client = new WebClient();
 					client.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(Client_DownloadFileCompleted);
-					client.DownloadFileAsync(new Uri("https://5beam.zapto.org/download/" + id), Path.Combine(directory, id, "levels.txt"));
+					client.DownloadFileAsync(new Uri("https://5beam.zelo.dev/download/" + id), Path.Combine(directory, id, "levels.txt"));
 					using (WebClient webClient = new WebClient())
 					{
 						webClient.DownloadFile("http://battlefordreamisland.com/5b/5b.swf", Path.Combine(directory, id, "5b.swf"));
@@ -121,7 +121,6 @@ namespace _5beam
 				});
 				downloadThread.Start();
 			}
-
 		}
 
 		void Client_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
@@ -145,12 +144,12 @@ namespace _5beam
 
 		private void UploadButton_Click(object sender, EventArgs e)
 		{
-			System.Diagnostics.Process.Start("https://5beam.zapto.org/");
+			System.Diagnostics.Process.Start("https://5beam.zelo.dev/");
 		}
 
-        private void uploadButton_Click_1(object sender, RoutedEventArgs e)
-        {
+		private void uploadButton_Click_1(object sender, RoutedEventArgs e)
+		{
 
-        }
-    }
+		}
+	}
 }

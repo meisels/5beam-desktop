@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.30621.155
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "5beam-desktop", "5beam-desktop\5beam-desktop.csproj", "{87A55580-C073-4C0E-A274-0378C8E05466}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "5beam-desktop Setup", "5beam-desktop Setup\5beam-desktop Setup.vdproj", "{8F4CA46E-43F2-46EB-BC14-E3DD76BB1C0B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

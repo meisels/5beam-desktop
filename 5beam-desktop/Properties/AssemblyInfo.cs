@@ -10,9 +10,9 @@ using System.Windows;
 [assembly: AssemblyTitle("5beam-desktop")]
 [assembly: AssemblyDescription("The easiest way to play custom made levels for 5b.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Zelo101")]
+[assembly: AssemblyCompany("Zelo101 and imaperson")]
 [assembly: AssemblyProduct("5beam-desktop")]
-[assembly: AssemblyCopyright("Copyright ©  2020")]
+[assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -51,5 +51,5 @@ using System.Windows;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("4.0.0.0")]
-[assembly: AssemblyFileVersion("4.0.0.0")]
+[assembly: AssemblyVersion("5.0.0.0")]
+[assembly: AssemblyFileVersion("5.0.0.0")]

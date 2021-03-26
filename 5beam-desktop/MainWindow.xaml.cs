@@ -36,19 +36,28 @@ namespace _5beam
 		public string Id { get; set; }
 		public string Name { get; set; }
 		public string Author { get; set; }
-		public string LevelVersion { get; set; }
 	}
 	public partial class MainWindow : Window
 	{
-		const string database = "https://5beam.zelo.dev/api/5b";
-		const string offlinemsg = "Refresh Failed. Either you, or the server (https://5beam.zelo.dev) is offline.";
+		const string database = "https://api.arimeisels.com/5beam/api/";
+		const string offlinemsg = "Refresh Failed. Either you, or the server is offline.";
 		static string directory = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "levels");
+		string[] arguments = Environment.GetCommandLineArgs();
 		string selectedlevel;
+		string levelBeamed;
 		Level[] levellist;
 
 		public void Refresh()
 		{
 			Levelslist.Items.Clear();
+
+			if (arguments.Length == 2)
+            {
+				if (!(arguments[1] == "fivebeam:\\\\" || arguments[1] == "fivebeam:%5C%5C" || arguments[1] == "fivebeam:\\" || arguments[1] == "fivebeam:%5C"))
+                {
+					levelBeamed = arguments[1].Replace("fivebeam:\\\\", "").Replace("fivebeam:%5C%5C", "").Replace("fivebeam:\\", "").Replace("fivebeam:%5C", "");
+				}
+			}
 
 			var levelRequest = WebRequest.Create(database);
 
@@ -71,6 +80,30 @@ namespace _5beam
 					{
 						ParseStream(streamReader.ReadLine());
 					}
+				}
+
+				if (levelBeamed != null)
+				{
+					if (!(levelBeamed == ""))
+					{
+						System.IO.Directory.CreateDirectory(Path.Combine(directory, levelBeamed));
+						Thread downloadThread = new Thread(() =>
+						{
+							WebClient client = new WebClient();
+							client.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(Client_DownloadFileCompleted);
+							client.DownloadFileAsync(new Uri("https://api.arimeisels.com/5beam/download/" + levelBeamed), Path.Combine(directory, levelBeamed, "levels.txt"));
+							using (WebClient webClient = new WebClient())
+							{
+								webClient.DownloadFile("http://battlefordreamisland.com/5b/5b.swf", Path.Combine(directory, levelBeamed, "5b.swf"));
+							}
+							Dispatcher.BeginInvoke((Action)delegate
+							{
+								System.Diagnostics.Process.Start(Path.Combine(directory, levelBeamed, "5b.swf"));
+							});
+						});
+						downloadThread.Start();
+					}
+					levelBeamed = null;
 				}
 			}
 			else
@@ -110,7 +143,7 @@ namespace _5beam
 				Thread downloadThread = new Thread(() => {
 					WebClient client = new WebClient();
 					client.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(Client_DownloadFileCompleted);
-					client.DownloadFileAsync(new Uri("https://5beam.zelo.dev/download/" + id), Path.Combine(directory, id, "levels.txt"));
+					client.DownloadFileAsync(new Uri("https://api.arimeisels.com/5beam/download/" + id), Path.Combine(directory, id, "levels.txt"));
 					using (WebClient webClient = new WebClient())
 					{
 						webClient.DownloadFile("http://battlefordreamisland.com/5b/5b.swf", Path.Combine(directory, id, "5b.swf"));
@@ -144,7 +177,7 @@ namespace _5beam
 
 		private void UploadButton_Click(object sender, EventArgs e)
 		{
-			System.Diagnostics.Process.Start("https://5beam.zelo.dev/");
+			System.Diagnostics.Process.Start("https://5beam.5blevels.com/upload.html");
 		}
 
 		private void uploadButton_Click_1(object sender, RoutedEventArgs e)

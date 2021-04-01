@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Generic; /// This and all other unecessary things are either here from previous versions of 5beam, failed feature attempts, or for future features :D
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Web.Script.Serialization;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,20 +24,15 @@ using Path = System.IO.Path;
 
 namespace _5beam
 {
-	/// made by Zelo101
-	/// version 4.0
-	/// <summary>
-	/// Interaction logic for MainWindow.xaml
-	/// 
-	/// </summary>
-	/// 
-
 	public class Level
 	{
 		public string Id { get; set; }
 		public string Name { get; set; }
 		public string Author { get; set; }
+		public string Views { get; set; }
+		public string Mod { get; set; }
 	}
+
 	public partial class MainWindow : Window
 	{
 		const string database = "https://api.arimeisels.com/5beam/api/";
@@ -47,17 +43,23 @@ namespace _5beam
 		string levelBeamed;
 		Level[] levellist;
 
+		public void getArgs()
+		{
+			if (arguments.Length == 2) /// Checks if there are arguments sent from your browser (the first is always the file path on all executables)
+			{
+				if (!(arguments[1] == "fivebeam:\\\\" || arguments[1] == "fivebeam:%5C%5C" || arguments[1] == "fivebeam:\\" || arguments[1] == "fivebeam:%5C")) /// Makes sure the argument isn't just to start the app (fivebeam:\\)
+				{
+					Hide();
+					levelBeamed = arguments[1].Replace("fivebeam:\\\\", "").Replace("fivebeam:%5C%5C", "").Replace("fivebeam:\\", "").Replace("fivebeam:%5C", ""); /// Removes the protocol itself so you have only the id left (if you put in any letters or symbols then the app crashes)
+				}
+			}
+		}
+
 		public void Refresh()
 		{
 			Levelslist.Items.Clear();
 
-			if (arguments.Length == 2)
-            {
-				if (!(arguments[1] == "fivebeam:\\\\" || arguments[1] == "fivebeam:%5C%5C" || arguments[1] == "fivebeam:\\" || arguments[1] == "fivebeam:%5C"))
-                {
-					levelBeamed = arguments[1].Replace("fivebeam:\\\\", "").Replace("fivebeam:%5C%5C", "").Replace("fivebeam:\\", "").Replace("fivebeam:%5C", "");
-				}
-			}
+			/// Complicated stuff I can't explain, DM me (imaperson#1060) if you want to know what it does
 
 			var levelRequest = WebRequest.Create(database);
 
@@ -66,7 +68,7 @@ namespace _5beam
 			{
 				levelStream = levelRequest.GetResponse().GetResponseStream();
 			}
-			catch (System.Net.WebException)
+			catch (WebException)
 			{
 				MessageBox.Show(offlinemsg);
 				return;
@@ -82,28 +84,45 @@ namespace _5beam
 					}
 				}
 
-				if (levelBeamed != null)
+				if (levelBeamed != null) /// This following if statement is all my code so expect a lot of dumb things I could've used shorter (and better) code for
 				{
-					if (!(levelBeamed == ""))
+					if (!(levelBeamed == "") && (levellist.Length >= Convert.ToInt32(levelBeamed)) && (Convert.ToInt32(levelBeamed) > 0)) /// Makes sure the beamed id is a. not a blank string (which should be impossible), b. listed in the api, and c. greater than 0
 					{
-						System.IO.Directory.CreateDirectory(Path.Combine(directory, levelBeamed));
-						Thread downloadThread = new Thread(() =>
+						var id = levellist[Convert.ToInt32(levelBeamed) - 1].Id; /// Gets the level id (and crashes if there are illegal characters)
+						Directory.CreateDirectory(Path.Combine(directory, id)); /// Creates a new directory for the levelpack (~10mb)
+						Thread downloadThread = new Thread(() => /// Downloads the levelpack
 						{
 							WebClient client = new WebClient();
-							client.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(Client_DownloadFileCompleted);
-							client.DownloadFileAsync(new Uri("https://api.arimeisels.com/5beam/download/" + levelBeamed), Path.Combine(directory, levelBeamed, "levels.txt"));
+							client.DownloadFileCompleted += new AsyncCompletedEventHandler(Client_DownloadFileCompleted);
+							client.DownloadFileAsync(new Uri("https://api.arimeisels.com/5beam/download/" + id), Path.Combine(directory, id, "levels.txt"));
 							using (WebClient webClient = new WebClient())
 							{
-								webClient.DownloadFile("http://battlefordreamisland.com/5b/5b.swf", Path.Combine(directory, levelBeamed, "5b.swf"));
+								if (!File.Exists(Path.Combine(directory, id, "5b.exe"))) /// If you've never downloaded this levelpack before, it will download the 5b executable (levelpacks are redownloaded because they can be changed and they take almost no time)
+								{
+									MessageBox.Show("As this is the first time you are playing this levelpack, please wait up to 10 seconds for the files to download.");
+									if (levellist[Convert.ToInt32(levelBeamed) - 1].Mod == "")
+									{
+										webClient.DownloadFile("https://api.arimeisels.com/5beam/5b.exe", Path.Combine(directory, id, "5b.exe"));
+									}
+									else
+                                    {
+										webClient.DownloadFile("https://api.arimeisels.com/5beam/mods/" + levellist[Convert.ToInt32(levelBeamed) - 1].Mod + ".exe", Path.Combine(directory, id, "5b.exe"));
+                                    }
+								}
 							}
-							Dispatcher.BeginInvoke((Action)delegate
+							Dispatcher.BeginInvoke((Action)delegate /// When the download completes 5b is started and the application is paused until 5b is closed. Normally in this case I would just close the application but the levels file won't finish downloading if I do.
 							{
-								System.Diagnostics.Process.Start(Path.Combine(directory, levelBeamed, "5b.swf"));
+								Process game = Process.Start(Path.Combine(directory, id, "5b.exe"));
+								game.WaitForExit();
+								Close();
 							});
 						});
-						downloadThread.Start();
+						downloadThread.Start(); /// Starts that entire thread... to be honest, I'm not sure why it couldn't have just run without the thread
 					}
-					levelBeamed = null;
+					else
+                    {
+						Close();
+					}
 				}
 			}
 			else
@@ -116,20 +135,20 @@ namespace _5beam
 		{
 			JavaScriptSerializer js = new JavaScriptSerializer();
 			levellist = js.Deserialize<Level[]>(jsonlevellist);
-
 			for (int i = 0; i < levellist.Length; i++)
 			{
-				Levelslist.Items.Add(
+				Levelslist.Items.Add( /// Adds a levelpack to the list
 					levellist[i].Name + " (Uploaded By: " +
-					levellist[i].Author + ")"
+					levellist[i].Author + ") - Views: " +
+					levellist[i].Views
 				);
 			}
-
 		}
 
 		public MainWindow()
 		{
 			InitializeComponent();
+			getArgs();
 			Refresh();
 		}
 
@@ -138,18 +157,25 @@ namespace _5beam
 
 			if (selectedlevel != null)
 			{
-				var id = levellist[Levelslist.SelectedIndex].Id;
-				System.IO.Directory.CreateDirectory(Path.Combine(directory, id));
+				var id = levellist[Levelslist.SelectedIndex].Id; /// Gets the level id. I guess the point of this is if a file is deleted? Or I guess if there's sorting? All I know is it's unecessary.
+				Directory.CreateDirectory(Path.Combine(directory, id)); /// If it doesn't already exist, a new directory for the levelpack is created
 				Thread downloadThread = new Thread(() => {
 					WebClient client = new WebClient();
-					client.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(Client_DownloadFileCompleted);
-					client.DownloadFileAsync(new Uri("https://api.arimeisels.com/5beam/download/" + id), Path.Combine(directory, id, "levels.txt"));
+					client.DownloadFileCompleted += new AsyncCompletedEventHandler(Client_DownloadFileCompleted);
+					client.DownloadFileAsync(new Uri("https://api.arimeisels.com/5beam/download/" + id), Path.Combine(directory, id, "levels.txt")); // Downloads the levelpack
 					using (WebClient webClient = new WebClient())
 					{
-						webClient.DownloadFile("http://battlefordreamisland.com/5b/5b.swf", Path.Combine(directory, id, "5b.swf"));
+						if (!File.Exists(Path.Combine(directory, id, "5b.exe")) || (1 == 1))
+						{
+							webClient.DownloadFile("https://api.arimeisels.com/5beam/5b.exe", Path.Combine(directory, id, "5b.exe")); /// Downloads 5b and blah blah blah stuff I explained before
+						}
 					}
 					Dispatcher.BeginInvoke((Action)delegate {
-						System.Diagnostics.Process.Start(Path.Combine(directory, id, "5b.swf"));
+						Hide(); /// Oh, this is new. Because the application is already showing, I can't just tell it to wait until 5b closes. I'm going to hide it first so you pesky users won't try to download a levelpack while it's being read from and break the entire file system (jk but it crashes the app).
+						Process game = Process.Start(Path.Combine(directory, id, "5b.exe"));
+						game.WaitForExit();
+						Show(); /// Makes the application visible again so you see the orange background representing a sunset because v5 is the last version of 5beam-desktop. I bet no one noticed that by themselves.
+						Refresh(); /// Refreshes so you see the new view count
 					});
 				});
 				downloadThread.Start();
@@ -158,15 +184,16 @@ namespace _5beam
 
 		void Client_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
 		{
+			/// When the levelpack finishes downloading
 		}
 
-		private void Levelslist_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		private void Levelslist_SelectionChanged(object sender, SelectionChangedEventArgs e) /// When a new levelpack is selected
 		{
 			if (Levelslist.Items.Count != 0)
 			{
-				selectedlevel = Levelslist.SelectedItem.ToString();
-				int sl_int = Levelslist.SelectedIndex;
-				textBlockSelection.Text = "You have selected '" + levellist[sl_int].Name + "' by " + levellist[sl_int].Author + ".";
+				selectedlevel = Levelslist.SelectedItem.ToString(); /// This is the selected levelpack's name (used to get the id when you press Start 5b).
+				int sl_int = Levelslist.SelectedIndex; /// The position this is from the top
+				textBlockSelection.Text = "You have selected '" + levellist[sl_int].Name + "' by " + levellist[sl_int].Author + "."; /// The level you selected appears in that small slot thing above the buttons
 			}
 		}
 
@@ -177,12 +204,15 @@ namespace _5beam
 
 		private void UploadButton_Click(object sender, EventArgs e)
 		{
-			System.Diagnostics.Process.Start("https://5beam.5blevels.com/upload.html");
+			Process.Start("https://api.arimeisels.com/5beam/upload.html");
 		}
-
-		private void uploadButton_Click_1(object sender, RoutedEventArgs e)
-		{
-
-		}
-	}
+    }
 }
+
+/* Coming soon:
+ * Upload levels from your desktop
+ * Like/Dislike levelpacks
+ * REPORT levelpacks
+ * Accounts?
+ * Mac/Linux support (probably not because that'll require a rewrite of the code)
+*/

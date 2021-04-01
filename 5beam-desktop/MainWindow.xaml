@@ -7,13 +7,17 @@
         mc:Ignorable="d"
         Title="5beam-desktop" Height="460" Width="810" MaxWidth="810" MaxHeight="460" Icon="icon2_RRz_icon.ico" ResizeMode="NoResize">
     <Grid Width="810" Height="460">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="77*"/>
+            <RowDefinition Height="15*"/>
+        </Grid.RowDefinitions>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                 <GradientStop Color="#FFBB6906" Offset="0"/>
                 <GradientStop Color="#FFEED90E" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Button x:Name="start5b" Content="Start 5b" HorizontalAlignment="Left" Margin="121,372,0,0" VerticalAlignment="Top" Width="553" Height="40" BorderBrush="#FF517058" Cursor="Hand" Click="Start5b_Click" FontSize="24">
+        <Button x:Name="start5b" Content="Start 5b" HorizontalAlignment="Left" Margin="121,372,0,0" VerticalAlignment="Top" Width="553" Height="40" BorderBrush="#FF517058" Cursor="Hand" Click="Start5b_Click" FontSize="24" Grid.RowSpan="2">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF9DD114" Offset="1"/>
@@ -31,7 +35,7 @@
                 </LinearGradientBrush>
             </TextBlock.Background>
         </TextBlock>
-        <Button x:Name="refreshButton" Content="Refresh" HorizontalAlignment="Left" Height="40" Margin="679,372,0,0" VerticalAlignment="Top" Width="106" Cursor="Hand" Click="RefreshButton_Click">
+        <Button x:Name="refreshButton" Content="Refresh" HorizontalAlignment="Left" Height="40" Margin="679,372,0,0" VerticalAlignment="Top" Width="106" Cursor="Hand" Click="RefreshButton_Click" Grid.RowSpan="2">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FFFF9700" Offset="1"/>
@@ -39,9 +43,9 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Label x:Name="label" Content="5.0, contact Zelo101#0138 or imaperson#1060 for any help / questions" HorizontalAlignment="Left" Height="31" Margin="10,72,0,0" VerticalAlignment="Top" Width="386"/>
+        <Label x:Name="label" Content="5.0 Alpha, contact imaperson#1060 or Zelo101#0138 for any help / questions" HorizontalAlignment="Left" Height="31" Margin="10,72,0,0" VerticalAlignment="Top" Width="428"/>
         <TextBlock x:Name="textBlockSelection" HorizontalAlignment="Left" Height="24" Margin="10,343,0,0" TextWrapping="Wrap" Text="No levelpack selected" VerticalAlignment="Top" Width="775" Background="#7FCDCDCD" TextAlignment="Center" LineHeight="6"/>
-        <Button x:Name="uploadButton" Content="Upload" HorizontalAlignment="Left" Height="40" Margin="10,372,0,0" VerticalAlignment="Top" Width="106" Cursor="Hand" Click="UploadButton_Click">
+        <Button x:Name="uploadButton" Content="Upload" HorizontalAlignment="Left" Height="40" Margin="10,372,0,0" VerticalAlignment="Top" Width="106" Cursor="Hand" Click="UploadButton_Click" Grid.RowSpan="2">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FFFF9700" Offset="1"/>

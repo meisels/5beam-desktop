@@ -165,9 +165,17 @@ namespace _5beam
 					client.DownloadFileAsync(new Uri("https://api.arimeisels.com/5beam/download/" + id), Path.Combine(directory, id, "levels.txt")); // Downloads the levelpack
 					using (WebClient webClient = new WebClient())
 					{
-						if (!File.Exists(Path.Combine(directory, id, "5b.exe")) || (1 == 1))
+						if (!File.Exists(Path.Combine(directory, id, "5b.exe"))) /// If you've never downloaded this levelpack before, it will download the 5b executable (levelpacks are redownloaded because they can be changed and they take almost no time)
 						{
-							webClient.DownloadFile("https://api.arimeisels.com/5beam/5b.exe", Path.Combine(directory, id, "5b.exe")); /// Downloads 5b and blah blah blah stuff I explained before
+							MessageBox.Show("As this is the first time you are playing this levelpack, please wait up to 10 seconds for the files to download.");
+							if (levellist[Convert.ToInt32(id) - 1].Mod == "")
+							{
+								webClient.DownloadFile("https://api.arimeisels.com/5beam/5b.exe", Path.Combine(directory, id, "5b.exe"));
+							}
+							else
+							{
+								webClient.DownloadFile("https://api.arimeisels.com/5beam/mods/" + levellist[Convert.ToInt32(id) - 1].Mod + ".exe", Path.Combine(directory, id, "5b.exe"));
+							}
 						}
 					}
 					Dispatcher.BeginInvoke((Action)delegate {

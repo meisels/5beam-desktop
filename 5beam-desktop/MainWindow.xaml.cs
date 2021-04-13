@@ -35,7 +35,7 @@ namespace _5beam
 
 	public partial class MainWindow : Window
 	{
-		const string database = "https://api.arimeisels.com/5beam/api/";
+		const string database = "https://5beam.5blevels.com/api/";
 		const string offlinemsg = "Refresh Failed. Either you, or the server is offline.";
 		static string directory = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "levels");
 		string[] arguments = Environment.GetCommandLineArgs();
@@ -94,7 +94,7 @@ namespace _5beam
 						{
 							WebClient client = new WebClient();
 							client.DownloadFileCompleted += new AsyncCompletedEventHandler(Client_DownloadFileCompleted);
-							client.DownloadFileAsync(new Uri("https://api.arimeisels.com/5beam/download/" + id), Path.Combine(directory, id, "levels.txt"));
+							client.DownloadFileAsync(new Uri("https://5beam.5blevels.com/download/" + id), Path.Combine(directory, id, "levels.txt"));
 							using (WebClient webClient = new WebClient())
 							{
 								if (!File.Exists(Path.Combine(directory, id, "5b.exe"))) /// If you've never downloaded this levelpack before, it will download the 5b executable (levelpacks are redownloaded because they can be changed and they take almost no time)
@@ -102,11 +102,11 @@ namespace _5beam
 									MessageBox.Show("As this is the first time you are playing this levelpack, please wait up to 10 seconds for the files to download.");
 									if (levellist[Convert.ToInt32(levelBeamed) - 1].Mod == "")
 									{
-										webClient.DownloadFile("https://api.arimeisels.com/5beam/5b.exe", Path.Combine(directory, id, "5b.exe"));
+										webClient.DownloadFile("https://5beam.5blevels.com/5b.exe", Path.Combine(directory, id, "5b.exe"));
 									}
 									else
                                     {
-										webClient.DownloadFile("https://api.arimeisels.com/5beam/mods/" + levellist[Convert.ToInt32(levelBeamed) - 1].Mod + ".exe", Path.Combine(directory, id, "5b.exe"));
+										webClient.DownloadFile("https://5beam.5blevels.com/mods/" + levellist[Convert.ToInt32(levelBeamed) - 1].Mod + ".exe", Path.Combine(directory, id, "5b.exe"));
                                     }
 								}
 							}
@@ -162,7 +162,7 @@ namespace _5beam
 				Thread downloadThread = new Thread(() => {
 					WebClient client = new WebClient();
 					client.DownloadFileCompleted += new AsyncCompletedEventHandler(Client_DownloadFileCompleted);
-					client.DownloadFileAsync(new Uri("https://api.arimeisels.com/5beam/download/" + id), Path.Combine(directory, id, "levels.txt")); // Downloads the levelpack
+					client.DownloadFileAsync(new Uri("https://5beam.5blevels.com/download/" + id), Path.Combine(directory, id, "levels.txt")); // Downloads the levelpack
 					using (WebClient webClient = new WebClient())
 					{
 						if (!File.Exists(Path.Combine(directory, id, "5b.exe"))) /// If you've never downloaded this levelpack before, it will download the 5b executable (levelpacks are redownloaded because they can be changed and they take almost no time)
@@ -170,11 +170,11 @@ namespace _5beam
 							MessageBox.Show("As this is the first time you are playing this levelpack, please wait up to 10 seconds for the files to download.");
 							if (levellist[Convert.ToInt32(id) - 1].Mod == "")
 							{
-								webClient.DownloadFile("https://api.arimeisels.com/5beam/5b.exe", Path.Combine(directory, id, "5b.exe"));
+								webClient.DownloadFile("https://5beam.5blevels.com/5b.exe", Path.Combine(directory, id, "5b.exe"));
 							}
 							else
 							{
-								webClient.DownloadFile("https://api.arimeisels.com/5beam/mods/" + levellist[Convert.ToInt32(id) - 1].Mod + ".exe", Path.Combine(directory, id, "5b.exe"));
+								webClient.DownloadFile("https://5beam.5blevels.com/mods/" + levellist[Convert.ToInt32(id) - 1].Mod + ".exe", Path.Combine(directory, id, "5b.exe"));
 							}
 						}
 					}
@@ -212,13 +212,16 @@ namespace _5beam
 
 		private void UploadButton_Click(object sender, EventArgs e)
 		{
-			Process.Start("https://api.arimeisels.com/5beam/upload.html");
+			Process upload = Process.Start(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "upload.exe"));
+			upload.WaitForExit();
+			Refresh();
 		}
     }
 }
 
 /* Coming soon:
- * Upload levels from your desktop
+ * Flash Player is not required - Done
+ * Upload levels from your desktop - Done
  * Like/Dislike levelpacks
  * REPORT levelpacks
  * Accounts?

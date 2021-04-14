@@ -32,6 +32,11 @@ namespace _5beam
 		public string Views { get; set; }
 		public string Mod { get; set; }
 	}
+	
+	public class CheckVersion
+	{
+		public string Version { get; set; }
+	}
 
 	public partial class MainWindow : Window
 	{
@@ -55,8 +60,41 @@ namespace _5beam
 			}
 		}
 
+		public void CheckUpdate()
+        {
+			var levelRequest = WebRequest.Create("https://5beam.5blevels.com/version/");
+			Stream levelStream;
+			try
+			{
+				levelStream = levelRequest.GetResponse().GetResponseStream();
+			}
+			catch (WebException)
+			{
+				MessageBox.Show(offlinemsg);
+				return;
+			}
+			using (var streamReader = new StreamReader(levelStream))
+			{
+				while (streamReader.Peek() > -1)
+				{
+					JavaScriptSerializer js = new JavaScriptSerializer();
+					var current = js.Deserialize<CheckVersion[]>(streamReader.ReadLine());
+					if (!(current[0].Version == "5-alpha.3"))
+					{
+						if (Convert.ToString(MessageBox.Show("Please update to version " + current[0].Version + " to continue using 5beam-Desktop.", "Update Required", (MessageBoxButton)System.Windows.Forms.MessageBoxButtons.OKCancel)) == "OK")
+						{
+							Process.Start("https://5beam.5blevels.com/player/");
+						}
+						Close();
+					}
+				}
+			}
+		}
+
 		public void Refresh()
 		{
+			CheckUpdate();
+
 			Levelslist.Items.Clear();
 
 			/// Complicated stuff I can't explain, DM me (imaperson#1060) if you want to know what it does
@@ -148,6 +186,7 @@ namespace _5beam
 		public MainWindow()
 		{
 			InitializeComponent();
+
 			getArgs();
 			Refresh();
 		}

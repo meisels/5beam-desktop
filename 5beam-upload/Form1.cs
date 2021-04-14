@@ -9,7 +9,10 @@ using System.Net;
 using System.Reflection;
 using System.Security;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
+using System.Web.Script.Serialization;
 using System.Windows.Forms;
 using Microsoft.VisualBasic;
 
@@ -21,7 +24,34 @@ namespace _5beam_upload
         {
             InitializeComponent();
 
-            text.Rtf = @"{\rtf1\ansi \b Rules:\b0 \par 1. Your file must be a levelpack file. Other files will be deleted. \par 2. Filesize limit: 500KB \par 3. Files must not have inappropiate content. \par 4. Please put at least 53 levels in your levelpack. Right now only 53 will display and any less will crash 5b. I am working on fixing this so bear with me while I deal with my lack of confidence. \par 5. Make sure your levelpack works without any mods. (you can DM me your mod and I might put it up) \par \b Notices: \b0 \par For now, if you want your file deleted, you can DM me on discord, imaperson#1060. Don't tell anybody this but... there may or may not be an account system in the works!}";
+            text.Rtf = @"{\rtf1\ansi \b Rules: \b0 \par 1. Your file must be a levelpack file. Other files \b will \b0 be deleted. \par 2. Filesize limit: 500KB \par 3. Files must not have inappropiate content. \par 4. Please put at least 53 levels in your levelpack. Right now only 53 will display and any less will crash 5b. I am working on fixing this so bear with me while I deal with my lack of confidence. \par 5. Make sure your levelpack works without any mods. (you can DM me your mod and I might put it up) \par \b Notices: \b0 \par For now, if you want your file deleted, you can DM me on discord, imaperson#1060. Don't tell anybody this but... there may or may not be an account system in the works!}";
+        }
+
+        public class Response
+        {
+            public string Success { get; set; }
+            public string Message { get; set; }
+        }
+
+        Response[] responseJson;
+
+        public void ParseStream(string json)
+        {
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            responseJson = js.Deserialize<Response[]>(json);
+
+            if (Convert.ToBoolean(responseJson[0].Success))
+            {
+                if (MessageBox.Show("Level uploaded successfully! Do you want to open the uploaded levelpack?", "Upload Success!", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    Process.Start("https://5beam.5blevels.com/level/" + responseJson[0].Message);
+                }
+                Close();
+            } else
+            {
+                MessageBox.Show(responseJson[0].Message);
+                Close();
+            }
         }
 
         private void openButton_Click(object sender, EventArgs e)
@@ -77,11 +107,11 @@ namespace _5beam_upload
                             Guy = "false";
                         }
 
-                        WebRequest request = WebRequest.Create("https://5beam.5blevels.com/upload/" + Name + "/" + Author + "/" + Description + "/" + Difficulty + "/" + Guy);
+                        WebRequest request = WebRequest.Create("https://5beam.5blevels.com/upload-cli/");
                         request.Credentials = CredentialCache.DefaultCredentials;
                         request.Method = "POST";
 
-                        string postData = "uploadfile=" + File.ReadAllText(filePath);
+                        string postData = "name=" + Name + "&author=" + Author + "&description=" + Description + "&Difficulty=" + Difficulty + "&guysmod=" + Guy + "&uploadfile=" + File.ReadAllText(filePath);
                         byte[] byteArray = Encoding.UTF8.GetBytes(postData);
 
                         request.ContentLength = byteArray.Length;
@@ -91,9 +121,32 @@ namespace _5beam_upload
                         dataStream.Write(byteArray, 0, byteArray.Length);
                         dataStream.Close();
 
-                        System.Threading.Thread.Sleep(200);
+                        Stream response;
+                        try
+                        {
+                            response = request.GetResponse().GetResponseStream();
+                        }
+                        catch (WebException)
+                        {
+                            MessageBox.Show("Upload Failed. Either you, or the server is offline.");
+                            return;
+                        }
 
-                        Close();
+                        if (response != null)
+                        {
+                            using (var streamReader = new StreamReader(response))
+                            {
+                                while (streamReader.Peek() > -1)
+                                {
+                                    ParseStream(streamReader.ReadLine());
+                                }
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("This is a bit awkward but my server seems to have had an error. Oops! Please try again later.");
+                            Close();
+                        }
                     }
                 }
                 catch (SecurityException ex)
@@ -102,6 +155,9 @@ namespace _5beam_upload
                     $"Details:\n\n{ex.StackTrace}");
                     Close();
                 }
+            } else
+            {
+                Close();
             }
         }
     }

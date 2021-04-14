@@ -138,7 +138,7 @@ namespace _5beam
 								if (!File.Exists(Path.Combine(directory, id, "5b.exe"))) /// If you've never downloaded this levelpack before, it will download the 5b executable (levelpacks are redownloaded because they can be changed and they take almost no time)
 								{
 									MessageBox.Show("As this is the first time you are playing this levelpack, please wait up to 10 seconds for the files to download.");
-									if (levellist[Convert.ToInt32(levelBeamed) - 1].Mod == "")
+									if ((levellist[Convert.ToInt32(id) - 1].Mod == "") || (levellist[Convert.ToInt32(id) - 1].Mod == "null"))
 									{
 										webClient.DownloadFile("https://5beam.5blevels.com/5b.exe", Path.Combine(directory, id, "5b.exe"));
 									}
@@ -207,7 +207,7 @@ namespace _5beam
 						if (!File.Exists(Path.Combine(directory, id, "5b.exe"))) /// If you've never downloaded this levelpack before, it will download the 5b executable (levelpacks are redownloaded because they can be changed and they take almost no time)
 						{
 							MessageBox.Show("As this is the first time you are playing this levelpack, please wait up to 10 seconds for the files to download.");
-							if (levellist[Convert.ToInt32(id) - 1].Mod == "")
+							if ((levellist[Convert.ToInt32(id) - 1].Mod == "") || (levellist[Convert.ToInt32(id) - 1].Mod == "null"))
 							{
 								webClient.DownloadFile("https://5beam.5blevels.com/5b.exe", Path.Combine(directory, id, "5b.exe"));
 							}
